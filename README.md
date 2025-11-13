@@ -67,7 +67,7 @@ Execute the following command to run the full Extract, Transform, and Load cycle
 
 ```bash
 python run_etl.py
-
+```
 
 ## 📄 License
 
