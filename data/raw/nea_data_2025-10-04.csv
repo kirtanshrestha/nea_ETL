@@ -1,0 +1,8 @@
+date,province,consumption_mwh,peak_load_mw,outages
+2025-10-04,Bagmati,242.82,181.95,0
+2025-10-04,Gandaki,226.64,338.68,2
+2025-10-04,Koshi,352.62,281.52,0
+2025-10-04,Lumbini,225.66,237.32,0
+2025-10-04,Madhesh,184.48,123.76,1
+2025-10-04,Karnali,155.49,183.23,0
+2025-10-04,Sudurpashchim,322.32,265.32,0
