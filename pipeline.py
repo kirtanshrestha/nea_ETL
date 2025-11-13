@@ -15,7 +15,6 @@ TABLE_NAME = "electricity_consumption"
 
 
 def extract_data():
-    """Read all CSVs from the raw data folder."""
     all_files = glob.glob(DATA_PATH)
     df_list = [pd.read_csv(file) for file in all_files]
     df = pd.concat(df_list, ignore_index=True)
@@ -24,15 +23,12 @@ def extract_data():
 
 
 def transform_data(df):
-    """Clean and enrich the data."""
     df.columns = df.columns.str.lower().str.strip()
     df["date"] = pd.to_datetime(df["date"])
 
-    # Example derived metric: % change from previous day (by province)
     df = df.sort_values(["province", "date"])
     df["consumption_change_%"] = df.groupby("province")["consumption_mwh"].pct_change() * 100
 
-    # Handle missing data
     df["consumption_mwh"].fillna(df["consumption_mwh"].mean(), inplace=True)
     df["peak_load_mw"].fillna(df["peak_load_mw"].mean(), inplace=True)
     df["outages"].fillna(0, inplace=True)
@@ -42,7 +38,6 @@ def transform_data(df):
 
 
 def load_data(df):
-    """Load data into PostgreSQL."""
     engine = create_engine(f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
     df.to_sql(TABLE_NAME, engine, if_exists="replace", index=False)
     print(f"Loaded {len(df)} rows into '{TABLE_NAME}' table in '{DB_NAME}' database.")

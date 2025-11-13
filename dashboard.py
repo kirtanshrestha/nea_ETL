@@ -3,7 +3,6 @@ import pandas as pd
 from sqlalchemy import create_engine
 import plotly.express as px
 
-# ========== CONFIG ==========
 DB_USER = "postgres"
 DB_PASS = "postgres"
 DB_HOST = "localhost"
@@ -14,7 +13,6 @@ TABLE_NAME = "electricity_consumption"
 
 engine = create_engine(f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
-# Load data
 @st.cache_data
 def load_data():
     query = f"SELECT * FROM {TABLE_NAME}"
@@ -23,17 +21,14 @@ def load_data():
 df = load_data()
 df["date"] = pd.to_datetime(df["date"])
 
-# Dashboard layout
 st.title("⚡ Nepal Electricity Consumption Dashboard")
 st.markdown("Data for learning — showing 3 months of daily consumption across provinces.")
 
-# Province filter
 provinces = df["province"].unique()
 selected_province = st.selectbox("Select Province", sorted(provinces))
 
 province_df = df[df["province"] == selected_province]
 
-# Line chart
 fig1 = px.line(
     province_df,
     x="date",
@@ -43,7 +38,6 @@ fig1 = px.line(
 )
 st.plotly_chart(fig1, use_container_width=True)
 
-# % Change chart
 fig2 = px.line(
     province_df,
     x="date",
@@ -53,7 +47,6 @@ fig2 = px.line(
 )
 st.plotly_chart(fig2, use_container_width=True)
 
-# Outages per province
 avg_outages = df.groupby("province")["outages"].mean().reset_index()
 fig3 = px.bar(
     avg_outages,
@@ -63,7 +56,6 @@ fig3 = px.bar(
 )
 st.plotly_chart(fig3, use_container_width=True)
 
-# Overall stats
 st.subheader("📊 Summary Stats")
 st.dataframe(
     df.groupby("province")
