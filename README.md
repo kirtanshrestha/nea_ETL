@@ -6,11 +6,10 @@ A robust **Extract, Transform, Load (ETL)** pipeline designed to automate the pr
 
 ## ✨ Features
 
-* **Automated Data Extraction:** Scripts for extracting raw data from specified NEA sources (e.g., public APIs, web scraping, file downloads).
 * **Comprehensive Data Transformation:** Cleansing, validation, normalization, and aggregation routines to prepare the data for analytical use.
 * **Flexible Data Loading:** Supports loading the structured data into various destinations, such as **PostgreSQL**, **MySQL**, or a data warehouse like Snowflake/BigQuery.
 * **Logging and Error Handling:** Built-in logging to monitor the ETL process and mechanisms to handle common extraction or transformation failures.
-* **Configuration Driven:** Easily configure source paths, database connections, and transformation parameters using configuration files (e.g., `.env`, `config.yaml`).
+
 
 
 ***
